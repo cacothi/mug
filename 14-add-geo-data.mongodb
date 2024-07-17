@@ -1,0 +1,29 @@
+/* global use, db */
+use('labs-db');
+
+const latLng = [
+    { handler: 'brisbane',  latLng: { lat: -27.3817556, lng: 152.6635512 }},
+    { handler: 'gold-coast',  latLng: { lat: -27.9541235, lng: 153.2045528 }},
+    { handler: 'sunshine-coast',  latLng: { lat: -26.6063876, lng: 152.909348 }},
+    { handler: 'sydney',  latLng: { lat: -33.8478053, lng: 150.6023336 }},
+    { handler: 'melbourne',  latLng: { lat: -37.9707262, lng: 144.3937632 }},
+];
+
+const locations = latLng.map(item => {
+    const { lat, lng } = item.latLng;
+    Object.assign(item, {
+        location: {
+            type: 'Point',
+            coordinates: [lng, lat]
+        },
+    })
+    return item;
+});
+
+
+for (var data of locations) {
+    const { handler, location } = data;
+    db.getCollection('events').updateOne({ handler }, { $set: { location }})
+}
+
+db.getCollection('events').find({})

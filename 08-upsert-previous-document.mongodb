@@ -1,0 +1,41 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Upsert Return PREVIOUS Document + SET ON INSERT + INCREMENT 
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'adelaide'
+}
+
+const update = {
+    $set: {
+        name: 'MUG Adelaide 2',
+        city: 'Adelaide',
+        state: 'SA'
+    },
+    $setOnInsert: {
+        date: new Date()
+    },
+    $inc: {
+        view: 1
+    }
+}
+
+const result = db.getCollection('events').findOneAndUpdate(filter, update, { upsert: true });
+// const result = db.getCollection('events').findOneAndUpdate(filter, update, { upsert: true, returnDocument: 'before' });
+console.log({ result });
+
+/*
+    # Result 1
+
+    # run find()
+    
+    # Change Name + Result 2
+    
+    -- Compare date + inc 
+
+    # run find()
+
+*/

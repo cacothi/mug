@@ -1,0 +1,20 @@
+/* global use, db */
+use('labs-db');
+
+const companies = [
+    { countryCode: 'AU', name: 'Coles' },
+    { countryCode: 'AU', name: 'Woolies' },
+    { countryCode: 'AU', name: 'Aldi' },
+    { countryCode: 'US', name: 'Walmart' },
+    { countryCode: 'US', name: 'Amazong' },
+    { countryCode: 'BR', name: 'Macro' },
+    { countryCode: 'BR', name: 'Carrefour' },
+]
+
+const countryCodes = Array.from(new Set(companies.map(item => item.countryCode)));
+
+for (const countryCode of countryCodes) {
+    const items = companies.filter(item => item.countryCode === countryCode).map(({ name }) => ({ name }));
+    const collectioName = `company-${countryCode}`;
+    db.getCollection(collectioName).insertMany(items);
+}

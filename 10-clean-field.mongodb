@@ -1,0 +1,19 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Remove Field 
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'brisbane'
+}
+
+const update = {
+    $unset: {
+        tags: ''
+    },
+}
+
+const result = db.getCollection('events').findOneAndUpdate(filter, update, { returnDocument: 'after' });
+console.log({ result });

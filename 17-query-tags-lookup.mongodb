@@ -1,0 +1,32 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// LIST ALL EVENTS
+////////////////////////////////////////////////////////////
+
+db.getCollection('events').aggregate([
+    { 
+        $lookup: {
+            from: 'event-tags',
+            localField: 'tags',
+            foreignField: 'tag',
+            // pipeline: [
+            //     {
+            //         $project: {
+            //             _id: 0
+            //         }
+            //     }
+            // ],
+            as: 'tags'
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            handler: 1,
+            city: 1,
+            tags: '$tags'
+        }
+    }
+]);

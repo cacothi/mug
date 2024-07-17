@@ -1,0 +1,19 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// PUSH to Array
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'brisbane'
+}
+
+const update = {
+    $push: {
+        tags: 'AI'
+    },
+}
+
+const result = db.getCollection('events').findOneAndUpdate(filter, update, { returnDocument: 'after' });
+console.log({ result });

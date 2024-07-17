@@ -1,0 +1,42 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Add Unique Value to Array 
+////////////////////////////////////////////////////////////
+
+const $group = {
+    _id: '$state',
+    totalCities: {
+        $sum: 1
+    },
+    first: {
+        $first: '$city'
+    },
+    last: {
+        $last: '$city'
+    },
+}
+
+const $project = {
+    _id: 0,
+    state: '$_id',
+    totalCities: 1,
+    first: 1,
+    last: {
+        $cond: {
+            if: {
+                $gt: ['$totalCities', 1]
+            }, 
+            then: '$last',
+            else: null
+        }
+    },
+}
+
+const pipeline = [
+    { $group },
+    { $project }
+]
+// AI, DB, NODE, REACTJS
+db.getCollection('events').aggregate(pipeline);

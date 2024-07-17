@@ -1,0 +1,37 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Upsert Return NEW Document + SET ON INSERT
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'melbourne'
+}
+
+const update = {
+    $set: {
+        name: 'MUG Melbourne 2',
+        city: 'Melbourne',
+        state: 'VIC'
+    },
+
+    /////// SET ONLY WHEN INSERTED! 
+    $setOnInsert: {
+        date: new Date()
+    }
+}
+
+/////// --> findOneAndUpdate
+
+const result = db.getCollection('events').findOneAndUpdate(filter, update, { upsert: true, returnDocument: 'after' });
+console.log({ result });
+
+/*
+    # Result 1
+    
+    # Change Name + Result 2
+    
+    -- Compare date 
+
+*/

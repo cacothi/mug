@@ -1,0 +1,27 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Upsert SIMPLE
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'sydney'
+}
+
+const update = {
+    $set: {
+        name: 'MUG Sydney',
+        city: 'Sydney',
+        state: 'NSW'
+    }
+}
+
+const result = db.getCollection('events').updateOne(filter, update, { upsert: true });
+console.log({ result });
+
+/*
+    #1 -> matchedCount, modifiedCount, ---> insertedId
+    #2 -> insertedId: null
+    
+*/

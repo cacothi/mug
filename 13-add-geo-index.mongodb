@@ -1,0 +1,5 @@
+/* global use, db */
+use('labs-db');
+
+db.getCollection('events').createIndex({ 'location': '2dsphere' });
+

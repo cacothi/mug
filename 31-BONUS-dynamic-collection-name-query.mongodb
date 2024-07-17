@@ -1,0 +1,8 @@
+/* global use, db */
+use('labs-db');
+
+const getByCountry = function(countryCode) {
+    return db.getCollection(`company-${countryCode}`).find({});
+}
+
+getByCountry('US');

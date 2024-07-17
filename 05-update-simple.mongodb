@@ -1,0 +1,27 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Update an Event
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'brisbane'
+}
+
+const update = {
+    $set: {
+        name: 'MUG Brisbane 1'
+    }
+}
+
+const result = db.getCollection('events').updateOne(filter, update);
+console.log({ result });
+
+
+/*
+    #1 -> modifiedCount: 1
+    
+    #2 -> modifiedCount: 0 ----> insertedId: null
+    
+*/

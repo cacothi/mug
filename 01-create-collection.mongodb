@@ -1,0 +1,15 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Create Collection and Insert a document.
+////////////////////////////////////////////////////////////
+const data = { 
+    name: 'MUG', 
+    handler: 'brisbane', 
+    city: 'Brisbane', 
+    state: 'QLD', 
+    limit: 2, 
+    date: new Date('2024-07-19T08:00:00Z') 
+}
+db.getCollection('events').insertOne(data);

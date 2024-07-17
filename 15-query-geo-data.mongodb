@@ -1,0 +1,32 @@
+/* global use, db */
+use("labs-db");
+
+db.getCollection("events").find({
+  location: {
+    $near: {
+      $geometry: {
+        type: "Point",
+        coordinates: [152.6635512, -27.3817556],
+      },
+      $maxDistance: 200000,
+    },
+  },
+});
+
+// db.getCollection('events').find({
+//     location:{
+//         $geoWithin: {
+//             $geometry: {
+//               type: "Polygon",
+//               coordinates: [
+//                 [
+//                     [151.6164044, -27.3473547],
+//                     [153.786474, -28.8193947],
+//                     [154.3014631, -26.7306269],
+//                     [151.6164044, -27.3473547]
+//                 ]
+//               ]
+//             }
+//         }
+//     }
+// });

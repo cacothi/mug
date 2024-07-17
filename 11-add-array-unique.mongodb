@@ -1,0 +1,19 @@
+/* global use, db */
+use('labs-db');
+
+////////////////////////////////////////////////////////////
+// Add Unique Value to Array 
+////////////////////////////////////////////////////////////
+
+const filter = {
+    handler: 'brisbane'
+}
+
+const update = {
+    $addToSet: {
+        tags: 'AI'
+    },
+}
+// AI, DB, NODE, REACTJS
+const result = db.getCollection('events').findOneAndUpdate(filter, update, { returnDocument: 'after' });
+console.log({ result });
